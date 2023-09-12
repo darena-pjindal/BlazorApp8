@@ -1,0 +1,94 @@
+﻿<EditForm method="post" Model="CustomerInvite" OnValidSubmit="InviteCustomer" class="col-md-4" FormName="Invite">
+    <DataAnnotationsValidator />
+    <ValidationSummary/>
+    
+        <div class="mb-2">
+            <label for="firstName" class="form-label">First Name:</label>
+            <ValidationMessage For="() => CustomerInvite.FirstName" />
+            <InputText id="firstName" class="form-control" @bind-Value="CustomerInvite.FirstName" />
+        </div>
+        <div class="mb-2">
+            <label for="firstName" class="form-label">Email:</label>
+            <InputText id="firstName" class="form-control" @bind-Value="CustomerInvite.Email" />
+        </div>
+     
+    
+  
+    @if (Step=="2" && CustomerInvite.Mail1 != null)
+    {
+        <div class="mb-2">
+            <MyMail @bind-Value="CustomerInvite.Mail1" />
+        </div>
+    }
+    
+    <div class="mb-2">
+        <button type="submit" class="btn btn-primary">Invite</button>
+    </div>
+   
+</EditForm>
+@if (customerInvited)
+{
+    <div>
+        <span>Customer Invited - Ask them to check their inbox to complete the signup process.</span>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div>
+        <span>@Message</span>
+    </div>
+}
+
+<form class="search">
+    <input name="query" placeholder="Search..." value="@Step" />
+    <button title="Search" class="ms-Icon ms-Icon--Search"></button>
+</form>
+
+@code {
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+
+    [SupplyParameterFromForm]
+    public CustomerInvite CustomerInvite { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    public string Step { get; set; }
+    public string? Message { get; set; }
+   
+
+    bool customerInvited = false;
+   
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+    }
+
+    private void InviteCustomer()
+    {
+        if (Step=="2")
+        { 
+            Console.WriteLine("Inviting Customer: " + CustomerInvite.Email);
+            customerInvited = true;
+            Message = $"{CustomerInvite.Email}-{CustomerInvite.Mail1.Address}";
+
+        }
+        else
+        {
+            CustomerInvite.Mail1 = new Mail();
+            Step = "2";
+            // var uri = new UriBuilder(NavigationManager.Uri)
+            // {
+            //         Query = $"Step={Step}"
+            // };
+            // NavigationManager.NavigateTo(uri.ToString(), forceLoad: true);
+        }
+       
+    }
+
+   
+}

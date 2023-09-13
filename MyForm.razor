@@ -12,8 +12,13 @@
             <InputText id="firstName" class="form-control" @bind-Value="CustomerInvite.Email" />
         </div>
      
-    
+    <InputCheckbox @bind-Value="CustomerInvite.IsSwitchButtonPressed" ></InputCheckbox>
   
+    @if (CustomerInvite.IsSwitchButtonPressed)
+    {
+        <div>show something</div>
+    }
+
     @if (Step=="2" && CustomerInvite.Mail1 != null)
     {
         <div class="mb-2">
@@ -49,6 +54,7 @@
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
+
 
 
     [SupplyParameterFromForm]

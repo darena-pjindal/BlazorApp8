@@ -6,12 +6,12 @@
 
 <h1>Home</h1>
 <MyForm></MyForm>
-<EditForm method="post" Model="CustomerInvite" id="hello" OnValidSubmit="OnValidSubmit" class="col-md-4" FormName="Invite">
+@* <EditForm method="post" Model="CustomerInvite" id="hello" OnValidSubmit="OnValidSubmit" class="col-md-4" FormName="Invite">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <Syncfusion.Blazor.Buttons.SfSwitch TChecked="bool" @bind-Checked="CustomerInvite.IsSwitchButtonPressed"></Syncfusion.Blazor.Buttons.SfSwitch>
     <button type="button" onclick="submitForm()">Button</button>
-</EditForm>
+</EditForm> *@
 
 @code {
     public CustomerInvite CustomerInvite { get; set; } = new CustomerInvite();

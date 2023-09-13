@@ -1,11 +1,31 @@
 ﻿@page "/"
+@inherits IndexBase
+@using System.ComponentModel.DataAnnotations;
 
 <PageTitle>Home</PageTitle>
 
 <h1>Home</h1>
-
-Welcome to your new app.
 <MyForm></MyForm>
+<EditForm method="post" Model="CustomerInvite" id="hello" OnValidSubmit="OnValidSubmit" class="col-md-4" FormName="Invite">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <Syncfusion.Blazor.Buttons.SfSwitch TChecked="bool" @bind-Checked="CustomerInvite.IsSwitchButtonPressed"></Syncfusion.Blazor.Buttons.SfSwitch>
+    <button type="button" onclick="submitForm()">Button</button>
+</EditForm>
+
+@code {
+    public CustomerInvite CustomerInvite { get; set; } = new CustomerInvite();
+    private void OnValidSubmit()
+    {
+        
+    }
+    private bool IsSelected { get; set; }
+    [JSInvokable]
+    public static Task<int[]> ReturnArrayAsync(int startPosition)
+    {
+        return Task.FromResult(Enumerable.Range(startPosition, 3).ToArray());
+    }
+}
 
 
 

@@ -20,6 +20,7 @@ namespace BlazorApp8
 
         public Mail? Mail1 { get; set; } 
         public Mail? Mail2 { get; set; }
+        public bool IsSwitchButtonPressed { get; set; }
     }
 
     public record Mail
